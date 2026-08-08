@@ -11,7 +11,7 @@ $(BIN_DIR)/main: src/main.adb
 	mkdir -p $(OBJ_DIR) $(BIN_DIR)
 	gprbuild -P $(PROJECT_FILE)
 
-$(BIN_DIR)/tests: tests.adb
+$(BIN_DIR)/tests: src/tests.adb
 	mkdir -p $(OBJ_DIR) $(BIN_DIR)
 	gprbuild -P $(PROJECT_FILE)
 

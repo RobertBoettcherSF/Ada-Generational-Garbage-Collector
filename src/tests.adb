@@ -121,11 +121,9 @@ begin
    N1 := Allocate; N2 := Allocate;
    Add_Edge (N1, N2, Ref_Counting);
    Add_Edge (N2, N1, Ref_Counting);
-   Remove_Edge (N1, N2, Ref_Counting); -- Break cycle to cleanup nicely, but manually test isolation
-   -- Wait, to test a true leak:
-   -- 1. Create N1, N2. Add to roots.
+   -- Add both to roots to keep them alive initially
    Add_Root (N1); Add_Root (N2);
-   Add_Edge (N1, N2, Ref_Counting); Add_Edge (N2, N1, Ref_Counting);
+   -- Now remove both from roots - the cycle should keep them alive (leak)
    Remove_Root (N1); Remove_Root (N2);
    Put_Line ("  11.1 Assert circular references leak in pure Ref Counting");
    Assert (Get_Allocated_Count = 2, "Cycle didn't leak - unexpected behavior!");
